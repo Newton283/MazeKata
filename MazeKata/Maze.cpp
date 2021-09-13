@@ -28,6 +28,7 @@ Maze::Maze(int columns, int rows, std::vector<std::vector <char> > const& outlin
 	
 
 	FindStart();
+	FindFinish();
 }
 
 Tile* Maze::GetTile(int column, int row)
@@ -58,6 +59,16 @@ void Maze::Display()
 	}
 }
 
+int Maze::GetRows()
+{
+	return rows;
+}
+
+int Maze::GetColumns()
+{
+	return columns;
+}
+
 bool Maze::FindStart()
 {
 	if (outline.size() > 0 && outline[0].size() > 0)
@@ -81,12 +92,35 @@ Tile* Maze::GetStartPoint()
 	return startTile;
 }
 
-int Maze::GetRows()
+bool Maze::FindFinish()
 {
-	return rows;
+	int maxRow = outline.size() - 1;
+	if (outline.size() > 0 && outline[0].size() > 0)
+	{
+		for (int i = 0; i < columns; i++)
+		{
+			if (outline[maxRow][i].IsBoundary() == false)
+			{
+				finishTile = &outline[maxRow][i];
+				return true;
+			}
+		}
+	}
+
+	finishTile = NULL;
+	return false;
 }
 
-int Maze::GetColumns()
+bool Maze::IsFinishPoint(Tile* currentTile)
 {
-	return columns;
+	if (currentTile == NULL ||
+		finishTile == NULL ||
+		currentTile != finishTile)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }

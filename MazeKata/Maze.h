@@ -32,12 +32,6 @@ public:
 	int GetRows();
 	Tile* GetStartPoint();
 
-	// The following functions will be used by the solver object to know the total distance that the solver can move in any given direction 
-	int GetOpenDistanceSouth(Tile* currentTile);
-	int GetOpenDistanceNorth(Tile* currentTile);
-	int GetOpenDistanceEast(Tile* currentTile);
-	int GetOpenDistanceWest(Tile* currentTile);
-
 	// Allow the solver object to check for finish point
 	bool IsFinishPoint(Tile* currentTile);
 
@@ -56,7 +50,7 @@ private:
 	std::vector<Tile> finalPath;
 
 	// Store start and end tiles once found
-	Tile* startTile, endTile;
+	Tile *startTile, *finishTile;
 
 	// Search through top row for open location, set start point
 	bool FindStart();

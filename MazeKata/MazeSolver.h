@@ -16,7 +16,7 @@ class MazeSolver
 {
 public:
 	// Pass in the maze object and starting tile
-	MazeSolver(Maze* maze);
+	MazeSolver(Maze* maze, Tile* currentTile);
 
 	// Algorithm for moving, will move until end point reached
 	void Move();
@@ -24,10 +24,22 @@ public:
 	// Return solved path of maze
 	std::vector<Tile> GetPath();
 
+	// Used to find the total distance that the solver can move in any given direction 
+	// Will return 0 if input points to a boundary piece
+	// TODO move these to private
+	int GetOpenDistanceSouth();
+	int GetOpenDistanceNorth();
+	int GetOpenDistanceEast();
+	int GetOpenDistanceWest();
+
 	bool GetHasSolvedMaze();
 
 private:
-	Tile currentTile;
+	Tile* currentTile;
+	Maze* maze;
+	const char pathChar = '#';
+	const char currentChar = '@';
+	const char openChar = '~';
 
 	// The path is a stack to make backing up a simple process
 	std::stack<Tile> path;

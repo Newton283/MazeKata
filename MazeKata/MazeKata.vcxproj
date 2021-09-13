@@ -144,12 +144,14 @@
     <ClCompile Include="MazeKata.cpp" />
     <ClCompile Include="MazeSolver.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="UserStoryTesting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeFileParser.h" />
     <ClInclude Include="MazeSolver.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="UserStoryTesting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

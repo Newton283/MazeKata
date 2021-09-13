@@ -7,9 +7,12 @@ TODO add Maze Parser, Maze, and Maze Solver when done
 */
 
 #include <iostream>
+#include "UserStoryTesting.h"
 int main()
 {
-    std::cout << "Hello World!\n";   
-    
+	UserStoryTesting test;
+
+	test.RunUserStories();
+	
     return 0;
 }
