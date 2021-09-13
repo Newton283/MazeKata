@@ -9,7 +9,7 @@ TODO add Maze Parser, Maze, and Maze Solver when done
 #include <iostream>
 int main()
 {
-    std::cout << "Hello World!\n";
-
+    std::cout << "Hello World!\n";   
+    
     return 0;
 }

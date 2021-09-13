@@ -15,10 +15,12 @@ Description: This class holds the maze itself.
 
 class Maze
 {
-	// Constructor
-	Maze(int columns, int rows, std::vector<std::vector <char>>* outline);
 
-	// Return reference to pointer to a Tile at location X,Y
+public:
+	// Constructor
+	Maze(int columns, int rows, std::vector<std::vector <char> > const& outline);
+
+	// Return reference to pointer to a Tile at location column,row indexed from 0
 	Tile* GetTile(int column, int row);
 
 	// Print out maze
@@ -26,18 +28,18 @@ class Maze
 	// Used to display the path the solver took to solve the maze
 	void DisplayResult();
 
-	int GetWidth();
-	int GetHeight();
-	Tile GetStartPoint();
+	int GetColumns();
+	int GetRows();
+	Tile* GetStartPoint();
 
 	// The following functions will be used by the solver object to know the total distance that the solver can move in any given direction 
-	int GetOpenDistanceSouth(Tile currentTile);
-	int GetOpenDistanceNorth(Tile currentTile);
-	int GetOpenDistanceEast(Tile currentTile);
-	int GetOpenDistanceWest(Tile currentTile);
+	int GetOpenDistanceSouth(Tile* currentTile);
+	int GetOpenDistanceNorth(Tile* currentTile);
+	int GetOpenDistanceEast(Tile* currentTile);
+	int GetOpenDistanceWest(Tile* currentTile);
 
 	// Allow the solver object to check for finish point
-	bool IsFinishPoint(Tile currentTile);
+	bool IsFinishPoint(Tile* currentTile);
 
 	// Once the solver object has finished, it gives the working demensions of the path
 	void SetFinalPath(std::vector<Tile> finalPath);
@@ -45,11 +47,16 @@ class Maze
 private:
 
 	// Internal dimensions
-	int width, height;
+	int columns, rows;
+
+	// Stores maze outline with Tiles
 	std::vector<std::vector<Tile>> outline;
 
 	// Used to hold path taken to solve the maze
-	Tile finalPath[];
+	std::vector<Tile> finalPath;
+
+	// Store start and end tiles once found
+	Tile* startTile, endTile;
 
 	// Search through top row for open location, set start point
 	bool FindStart();

@@ -9,6 +9,7 @@ class Tile
 {
 public:
 	// Constructor 
+	Tile();
 	Tile(int column, int row, bool isBoundary);
 
 	int GetColumn();
