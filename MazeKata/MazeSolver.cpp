@@ -11,6 +11,7 @@ MazeSolver::MazeSolver(Maze* maze, Tile* currentTile)
 	this->maze = maze;
 	this->currentTile = currentTile;
 	this->currentTile->SetDisplayChar(currentChar);
+	hasSolvedMaze = false;
 }
 
 void MazeSolver::Move()
@@ -46,6 +47,10 @@ void MazeSolver::Move()
 		currentTile = maze->GetTile((currentColumn - 1), currentTile->GetRow());
 		currentTile->SetDisplayChar(currentChar);
 		std::cout << "Moving West \n";
+	}
+	else
+	{
+		std::cout << "No valid move\n";
 	}
 
 	if (maze->IsFinishPoint(currentTile))
