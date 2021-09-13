@@ -9,8 +9,8 @@ void UserStoryTesting::RunUserStories()
 {
 	if (UserStoryOne() &&
 		UserStoryTwo() &&
-		UserStoryThree() /*&&
-		//UserStoryFour() &&
+		UserStoryThree() &&
+		UserStoryFour() /*&&
 		//UserStoryFive()*/)
 	{
 		std::cout << "\nPassed All User Stories!";
@@ -124,6 +124,53 @@ bool UserStoryTesting::UserStoryThree()
 	{
 		std::cout << "\nFailed User Story 3!\n";
 		std::cout << "\n\n%%% End UserStory 3 %%%\n\n";
+		return false;
+	}
+}
+
+bool UserStoryTesting::UserStoryFour()
+{
+	std::cout << "%%% User Story 4 %%%\n\n";
+
+	std::vector<char> row1 = { '%','~','%','%','%' };
+	std::vector<char> row2 = { '%','~','~','~','%' };
+	std::vector<char> row3 = { '%','%','%','~','%' };
+	std::vector<char> row4 = { '%','~','~','~','%' };
+	std::vector<char> row5 = { '%','~','%','%','%' };
+	std::vector<char> row6 = { '%','~','~','~','%' };
+	std::vector<char> row7 = { '%','%','%','~','%' };
+	std::vector<std::vector<char>> outline;
+
+	outline.push_back(row1);
+	outline.push_back(row2);
+	outline.push_back(row3);
+	outline.push_back(row4);
+	outline.push_back(row5);
+	outline.push_back(row6);
+	outline.push_back(row7);
+
+	Maze* maze = new Maze(5, 7, outline);
+
+	MazeSolver solver(maze, maze->GetStartPoint());
+
+	while (solver.GetHasSolvedMaze() != true)
+	{
+		maze->Display();
+		solver.Move();
+	}
+
+	maze->Display();
+
+	if (solver.GetHasSolvedMaze())
+	{
+		std::cout << "\nPassed User Story 4!\n";
+		std::cout << "\n\n%%% End UserStory 4 %%%\n\n";
+		return true;
+	}
+	else
+	{
+		std::cout << "\nFailed User Story 4!\n";
+		std::cout << "\n\n%%% End UserStory 4 %%%\n\n";
 		return false;
 	}
 }
