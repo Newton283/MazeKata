@@ -25,8 +25,6 @@ public:
 
 	// Print out maze
 	void Display();
-	// Used to display the path the solver took to solve the maze
-	void DisplayResult();
 
 	int GetColumns();
 	int GetRows();
@@ -34,9 +32,6 @@ public:
 
 	// Allow the solver object to check for finish point
 	bool IsFinishPoint(Tile* currentTile);
-
-	// Once the solver object has finished, it gives the working demensions of the path
-	void SetFinalPath(std::vector<Tile> finalPath);
 
 private:
 

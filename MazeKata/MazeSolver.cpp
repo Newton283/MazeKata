@@ -12,49 +12,35 @@ MazeSolver::MazeSolver(Maze* maze, Tile* currentTile)
 	this->currentTile = currentTile;
 	this->currentTile->SetDisplayChar(currentChar);
 	hasSolvedMaze = false;
+	lastTile = NULL;
 }
 
 void MazeSolver::Move()
 {
 	if (GetOpenDistanceSouth() > 0)
 	{
-		int currentRow = currentTile->GetRow();
-		currentTile->SetDisplayChar(pathChar);
-		currentTile = maze->GetTile(currentTile->GetColumn(), (currentRow + 1));
-		currentTile->SetDisplayChar(currentChar);
-		std::cout << "Moving South \n";
+		MoveSouth();
 	} 
 	else if (GetOpenDistanceNorth() > 0)
-	{
-		int currentRow = currentTile->GetRow();
-		currentTile->SetDisplayChar(pathChar);
-		currentTile = maze->GetTile(currentTile->GetColumn(), (currentRow - 1));
-		currentTile->SetDisplayChar(currentChar);
-		std::cout << "Moving North \n";
+	{	
+		MoveNorth();
 	} 
 	else if (GetOpenDistanceEast() > 0)
-	{
-		int currentColumn = currentTile->GetColumn();
-		currentTile->SetDisplayChar(pathChar);
-		currentTile = maze->GetTile((currentColumn + 1), currentTile->GetRow());
-		currentTile->SetDisplayChar(currentChar);
-		std::cout << "Moving East \n";
+	{	
+		MoveEast();
 	} 
 	else if (GetOpenDistanceWest() > 0)
 	{
-		int currentColumn = currentTile->GetColumn();
-		currentTile->SetDisplayChar(pathChar);
-		currentTile = maze->GetTile((currentColumn - 1), currentTile->GetRow());
-		currentTile->SetDisplayChar(currentChar);
-		std::cout << "Moving West \n";
+		MoveWest();
 	}
 	else
 	{
-		std::cout << "No valid move\n";
+		Backup();
 	}
 
 	if (maze->IsFinishPoint(currentTile))
 	{
+		path.push(currentTile);
 		hasSolvedMaze = true;
 	}
 }
@@ -198,6 +184,81 @@ int MazeSolver::GetOpenDistanceWest()
 	}
 
 	return distanceWest;
+}
+
+void MazeSolver::MoveSouth()
+{
+	int currentRow = currentTile->GetRow();
+	if (lastTile != NULL)
+	{
+		lastTile->SetDisplayChar(openChar);
+		lastTile = NULL;
+	}
+	currentTile->SetDisplayChar(pathChar);
+	path.push(currentTile);
+	currentTile = maze->GetTile(currentTile->GetColumn(), (currentRow + 1));
+	currentTile->SetDisplayChar(currentChar);
+	std::cout << "Moving South \n";
+}
+
+void MazeSolver::MoveNorth()
+{
+	int currentRow = currentTile->GetRow();
+	if (lastTile != NULL)
+	{
+		lastTile->SetDisplayChar(openChar);
+		lastTile = NULL;
+	}
+	currentTile->SetDisplayChar(pathChar);
+	path.push(currentTile);
+	currentTile = maze->GetTile(currentTile->GetColumn(), (currentRow - 1));
+	currentTile->SetDisplayChar(currentChar);
+	std::cout << "Moving North \n";
+}
+
+void MazeSolver::MoveEast()
+{
+	int currentColumn = currentTile->GetColumn();
+	if (lastTile != NULL)
+	{
+		lastTile->SetDisplayChar(openChar);
+		lastTile = NULL;
+	}
+	currentTile->SetDisplayChar(pathChar);
+	path.push(currentTile);
+	currentTile = maze->GetTile((currentColumn + 1), currentTile->GetRow());
+	currentTile->SetDisplayChar(currentChar);
+	std::cout << "Moving East \n";
+}
+
+void MazeSolver::MoveWest()
+{
+	int currentColumn = currentTile->GetColumn();
+	if (lastTile != NULL)
+	{
+		lastTile->SetDisplayChar(openChar);
+		lastTile = NULL;
+	}
+	currentTile->SetDisplayChar(pathChar);
+	path.push(currentTile);
+	currentTile = maze->GetTile((currentColumn - 1), currentTile->GetRow());
+	currentTile->SetDisplayChar(currentChar);
+	std::cout << "Moving West \n";
+}
+
+void MazeSolver::Backup()
+{
+	if (lastTile != NULL)
+	{
+		lastTile->SetDisplayChar('~');
+	}
+	lastTile = currentTile;
+	lastTile->SetDisplayChar(pathChar);
+
+	currentTile = path.top();
+	path.pop();
+	currentTile->SetDisplayChar(currentChar);
+	std::cout << "No valid move, backing up\n";
 }
 
 bool MazeSolver::GetHasSolvedMaze()

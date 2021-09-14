@@ -14,5 +14,7 @@ int main()
 
 	test.RunUserStories();
 	
+	std::cout << "Press ENTER to exit";
+	int userInput = std::cin.get();
     return 0;
 }

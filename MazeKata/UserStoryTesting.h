@@ -15,5 +15,7 @@ private:
 	bool UserStoryThree();
 	bool UserStoryFour();
 	bool UserStoryFive();
+	bool UserStoryFiveAlt();
+	bool UserStoryBackgroundMaze();
 };
 

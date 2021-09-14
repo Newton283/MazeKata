@@ -1042,11 +1042,9 @@ TEST(TestMazeSolverObject, GetHasSolveMazeIsTrue)
 
 	while (solver.GetHasSolvedMaze() != true)
 	{
-		maze->Display();
 		solver.Move();
 	}
 
-	maze->Display();
 
 	EXPECT_EQ(true, solver.GetHasSolvedMaze());
 }
